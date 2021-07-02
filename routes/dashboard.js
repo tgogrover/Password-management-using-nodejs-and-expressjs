@@ -19,10 +19,6 @@ function checkLoginUser(req,res,next){
   next();
 }
 
-if (typeof localStorage === "undefined" || localStorage === null) {
-  var LocalStorage = require('node-localstorage').LocalStorage;
-  localStorage = new LocalStorage('./scratch');
-}
 
 
 router.get('/dashboard', checkLoginUser,function(req, res, next) {

@@ -25,11 +25,9 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 }
 
 
-router.get('/',checkLoginUser, function(req, res, next) {
-    res.redirect('/dashboard');
-  });
+
   
-  router.get('/passwordDetails/edit/:id',checkLoginUser, function(req, res, next) {
+  router.get('/passwordDetails/edit/:id',checkLoginUser, function(req, res) {
     var loginUser=localStorage.getItem('loginUser');
     var id =req.params.id;
     var getPassDetails=passModel.findById({_id:id});
@@ -41,14 +39,15 @@ router.get('/',checkLoginUser, function(req, res, next) {
   });
   });
   
-  router.post('/passwordDetails/edit/:id',checkLoginUser, function(req, res, next) {
+  router.post('/passwordDetails/edit/:id',checkLoginUser, function(req, res) {
     var loginUser=localStorage.getItem('loginUser');
     var id =req.params.id;
     var passwordCategory= req.body.passwordCategory;
     var passwordDetails= req.body.passwordDetails;
-    passModel.findByIdAndUpdate(id,{Password_Category:passwordCategory,s:passwordDetails}).exec(function(err){
+    passModel.findByIdAndUpdate(id,{Password_Category:passwordCategory, Password_Details:passwordDetails}).exec(function(err){
     if(err) throw err;
-      var getPassDetails=passModel.findById({_id:id});
+
+    var getPassDetails=passModel.findById({_id:id});
     getPassDetails.exec(function(err,data){
   if(err) throw err;
   getPassCat.exec(function(err,data1){

@@ -37,5 +37,5 @@ app.use(passDetRoute);
 app.use(viewpassDetails);
 app.use(editpassDetails)
 app.listen(3000,()=>{
-    console.log('server:3000 is working successfully')
+    console.log('port:3000 is working successfully')
 })

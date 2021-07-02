@@ -7,15 +7,7 @@ var jwt = require('jsonwebtoken');
 
 /* GET home page. */
 
-function checkLoginUser(req,res,next){
-  var userToken=localStorage.getItem('userToken');
-  try {
-    var decoded = jwt.verify(userToken, 'loginSecurity');
-  } catch(err) {
-    res.redirect('/login');
-  }
-  next();
-}
+
 
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
@@ -29,7 +21,7 @@ router.get('/login', function(req, res, next) {
   if(loginUser){
     res.redirect('./dashboard');
   }else{
-  res.render('login', { title: 'Password Management System', msg:'' });
+  res.render('login', { title: 'Password Management System', msg:'',Error:'' });
   }
 });
 
@@ -40,7 +32,7 @@ router.post('/login', function(req, res, next) {
   checkUser.exec((err, data)=>{
     if(err) throw err;
    if(data==null){
-    res.render('login', { title: 'Password Management System', msg:"Email is not Registered !" });
+    res.render('login', { title: 'Password Management System', Error:"Email is not Registered !" ,msg:''});
     
    }else{
 var hash_Password=data.Password;
@@ -51,7 +43,7 @@ if(bcrypt.compareSync(password,hash_Password)){
   localStorage.setItem('loginUser', email);
   res.redirect('/dashboard');
 }else{
-  res.render('login', { title: 'Password Management System', msg:"Invalid Password" });
+  res.render('login', { title: 'Password Management System', Error:"Invalid Password",msg:""});
 
 }
    }
@@ -60,7 +52,7 @@ if(bcrypt.compareSync(password,hash_Password)){
 });
 
 
-router.get('/logout', function(req, res, next) {
+router.get('/logout', function(req, res) {
   localStorage.removeItem('userToken');
   localStorage.removeItem('loginUser');
   res.redirect('/login');

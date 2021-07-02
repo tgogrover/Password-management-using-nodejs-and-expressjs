@@ -18,9 +18,12 @@
                       <div class="panel-title"> SignUp</div>
                        </div>  
                   <div class="panel-body">
-                  <% if(msg !=''){ %>
-                    <p style="text-align: center">   <%= msg %></p>
+                    <% if(Error !='') {%>
+                      <h3 style="color: red"><b><%= Error %></b></h3>
                     <% } %>
+                    <% if(msg) {%>
+                      <h3 style="color: green"><b><%= msg %></b></h3>
+                      <% } %>
                       <form action="/signup" id="EmployeeForm" class="form-horizontal" method="post"  role="form">
                           
                           <div id="signupalert" style="display:none" class="alert alert-danger">

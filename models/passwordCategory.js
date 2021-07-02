@@ -4,7 +4,8 @@ const mongoose=require('mongoose');
 var cat_PassSchema=new mongoose.Schema({
 	Password_Category:{
 		type:String,
-		unique:true
+		unique:true,
+	    required:true
     },
     date:  {
 	        type:Date,
