@@ -21,13 +21,14 @@ if (typeof localStorage === "undefined" || localStorage === null) {
   localStorage = new LocalStorage('./scratch');
 }
 
+
 function checkpasswordCategory(req,res,next){
   var loginUser=localStorage.getItem('loginUser');
   const passwordCategory=req.body.passwordCategory;
  
  if(passwordCategory==''){
   
-  res.render('passwordCategory', { title: 'Password Management System',loginUser: loginUser, 
+  return res.render('passwordCategory', { title: 'Password Management System',loginUser: loginUser, 
   errors:'You must have to fill Password Category Fields', success:'' });
       
  }
@@ -71,11 +72,12 @@ router.post('/passwordCategory',checkLoginUser,checkpasswordCategory,function(re
            });
       
            passcatDetails.save(function(err,doc){
-             if(err) {res.render('passwordCategory', { title: 'Password Management System',loginUser: loginUser, 
+             if(err) {
+               return res.render('passwordCategory', { title: 'Password Management System',loginUser: loginUser, 
                errors:'Already a same Password Category in this Email', success:'' });
                }
               
-            else{
+            if(doc){
              res.render('passwordCategory', { title: 'Password Management System',loginUser: loginUser, errors:'', success:'Password category inserted successfully' });
       }
             })

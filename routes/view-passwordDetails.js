@@ -62,7 +62,7 @@ router.get('/view-passwordDetails',checkLoginUser, function(req, res, next) {
     current: page,
     pages: Math.ceil(count / perPage) 
   });
-    });
+ });
   });
   });
   
